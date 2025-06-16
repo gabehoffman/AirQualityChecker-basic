@@ -9,13 +9,14 @@
         label { display: block; margin-top: 1em; }
         input[type="text"] { width: 100%; padding: 0.5em; }
         .success { color: green; margin-top: 1em; }
-        .errorlist { color: red; }
+        .errorlist, .error { color: red; }
+        .aqi-box { border: 1px solid #ccc; padding: 1em; margin-top: 2em; background: #f9f9f9; }
     </style>
 </head>
 <body>
     <h1>Air Quality Location Form</h1>
-    {% if success %}
-        <div class="success">Form submitted successfully!</div>
+    {% if error %}
+        <div class="error">{{ error }}</div>
     {% endif %}
     <form method="post" novalidate>
         {% csrf_token %}
@@ -28,6 +29,15 @@
         {{ form.country }}
         <button type="submit">Submit</button>
     </form>
+    {% if aqi %}
+    <div class="aqi-box">
+        <h2>Air Quality for {{ display_name }}</h2>
+        <p><strong>AQI:</strong> {{ aqi }}</p>
+        <p><strong>Main Pollutant:</strong> {{ main_pollutant|default:'N/A' }}</p>
+        <p><strong>Measurement Time:</strong> {{ measurement_time }}</p>
+        <p><strong>Health Advisory:</strong> {{ advisory }}</p>
+    </div>
+    {% endif %}
     <script>
         // Basic client-side validation
         document.querySelector('form').onsubmit = function(e) {
