@@ -3,41 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <title>Air Quality Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        form { max-width: 400px; margin: auto; }
-        label { display: block; margin-top: 1em; }
-        input[type="text"] { width: 100%; padding: 0.5em; }
-        .success { color: green; margin-top: 1em; }
-        .errorlist, .error { color: red; }
-        .aqi-box { border: 1px solid #ccc; padding: 1em; margin-top: 2em; background: #f9f9f9; }
+        body {
+            background: #18191A;
+            color: #F5F6FA;
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        header {
+            background: #232526;
+            border-bottom: 4px solid #FF3C00;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #FF3C00;
+            margin: 0;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        form {
+            background: #232526;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            padding: 2rem 2.5rem 1.5rem 2.5rem;
+            max-width: 420px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        label {
+            display: block;
+            margin-top: 1.2em;
+            font-weight: 600;
+            color: #FF3C00;
+            letter-spacing: 1px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.7em 1em;
+            margin-top: 0.3em;
+            border: none;
+            border-radius: 6px;
+            background: #18191A;
+            color: #F5F6FA;
+            font-size: 1rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 0 2px #FF3C00;
+        }
+        button[type="submit"] {
+            margin-top: 2em;
+            width: 100%;
+            padding: 0.9em 0;
+            background: linear-gradient(90deg, #FF3C00 0%, #FF6A00 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(255,60,0,0.10);
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #FF6A00 0%, #FF3C00 100%);
+        }
+        .errorlist, .error {
+            color: #FF3C00;
+            background: #2A1A18;
+            border-left: 4px solid #FF3C00;
+            padding: 0.7em 1em;
+            border-radius: 6px;
+            margin-bottom: 1em;
+        }
+        .aqi-box {
+            background: #232526;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            padding: 2rem 2.5rem 1.5rem 2.5rem;
+            margin-top: 1.5em;
+            max-width: 420px;
+            width: 100%;
+            color: #F5F6FA;
+            border-left: 6px solid #FF3C00;
+        }
+        .aqi-box h2 {
+            color: #FF3C00;
+            font-size: 1.5rem;
+            margin-bottom: 1em;
+            font-weight: 700;
+        }
+        .aqi-box p {
+            font-size: 1.1rem;
+            margin: 0.7em 0;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 600px) {
+            form, .aqi-box {
+                padding: 1.2rem 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Air Quality Location Form</h1>
-    {% if error %}
-        <div class="error">{{ error }}</div>
-    {% endif %}
-    <form method="post" novalidate>
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <label for="id_city">City *</label>
-        {{ form.city }}
-        <label for="id_state">State/Province/Region *</label>
-        {{ form.state }}
-        <label for="id_country">Country (default: USA)</label>
-        {{ form.country }}
-        <button type="submit">Submit</button>
-    </form>
-    {% if aqi is not None %}
-    <div class="aqi-box">
-        <h2>Air Quality for {{ display_name }}</h2>
-        <p><strong>AQI:</strong> {{ aqi }}</p>
-        <p><strong>Main Pollutant:</strong> {{ main_pollutant|default:'N/A' }}</p>
-        <p><strong>Measurement Time:</strong> {{ measurement_time }}</p>
-        <p><strong>Health Advisory:</strong> {{ advisory }}</p>
-    </div>
-    {% endif %}
+    <header>
+        <h1>Air Quality Checker</h1>
+    </header>
+    <main>
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <label for="id_city">City *</label>
+            {{ form.city }}
+            <label for="id_state">State/Province/Region *</label>
+            {{ form.state }}
+            <label for="id_country">Country (default: USA)</label>
+            {{ form.country }}
+            <button type="submit">Check Air Quality</button>
+        </form>
+        {% if aqi is not None %}
+        <div class="aqi-box">
+            <h2>Air Quality for {{ display_name }}</h2>
+            <p><strong>AQI:</strong> {{ aqi }}</p>
+            <p><strong>Main Pollutant:</strong> {{ main_pollutant|default:'N/A' }}</p>
+            <p><strong>Measurement Time:</strong> {{ measurement_time }}</p>
+            <p><strong>Health Advisory:</strong> {{ advisory }}</p>
+        </div>
+        {% endif %}
+    </main>
     <script>
         // Basic client-side validation
         document.querySelector('form').onsubmit = function(e) {
