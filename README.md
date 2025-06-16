@@ -1,13 +1,17 @@
 # AirQualityChecker-basic
 
-A minimal Django web app that allows users to enter a location (city, state/province/region, and country) to check air quality. The form requires city and state/province/region, and defaults the country to USA if not provided. Includes basic client-side and server-side validation.
+A Django web app that lets users check the current air quality index (AQI) for any location by entering a city, state/province/region, and country (or just city and state for US locations). The app uses the Open-Meteo Air Quality API and Nominatim geocoding to fetch and display AQI, main pollutant, measurement time, and a health advisory. It includes both client-side and server-side validation, and handles errors gracefully.
 
 ## Features
 - Simple form for entering location details
 - Required fields: City and State/Province/Region
 - Optional field: Country (defaults to USA)
-- Basic client-side validation
-- Success message on form submission
+- Client-side and server-side validation
+- Converts location to coordinates using Nominatim (OpenStreetMap)
+- Fetches AQI and air quality data from Open-Meteo (no API key required)
+- Displays AQI, main pollutant, measurement time, and health advisory
+- User-friendly error messages for invalid locations or API issues
+- Unit and integration tests for form, API logic, and view rendering
 
 ## Getting Started
 
@@ -24,17 +28,26 @@ A minimal Django web app that allows users to enter a location (city, state/prov
    ```
 3. Install dependencies:
    ```sh
-   pip install django
+   pip install -r requirements.txt
    ```
 4. Apply migrations:
    ```sh
    python manage.py migrate
    ```
-5. Start the development server:
-   ```sh
-   python manage.py runserver
-   ```
-6. Open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to use the app.
+
+### Running the Server
+Start the Django development server:
+```sh
+python manage.py runserver
+```
+Then open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+### Running Tests
+This project uses pytest and pytest-django for testing. To run all tests:
+```sh
+pytest aqform/
+```
+This will run unit and integration tests for form validation, API logic, and AQI result rendering.
 
 ## License
 Apache 2.0

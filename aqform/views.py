@@ -3,9 +3,13 @@ from .forms import AirQualityForm
 from .aq_utils import geocode_location, fetch_air_quality
 
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
 
 def air_quality_form(request):
     context = {}
+    context['aqi'] = None  # Always set aqi in context for template logic
     if request.method == 'POST':
         form = AirQualityForm(request.POST)
         if form.is_valid():
@@ -15,10 +19,12 @@ def air_quality_form(request):
             lat, lon, display_name = geocode_location(city, state, country)
             if not lat or not lon:
                 context['error'] = 'Location not found. Please check your input.'
+                context['aqi'] = None
             else:
                 aq_data = fetch_air_quality(lat, lon)
                 if not aq_data or 'hourly' not in aq_data or 'us_aqi' not in aq_data['hourly']:
                     context['error'] = 'Could not fetch air quality data. Please try again later.'
+                    context['aqi'] = None
                 else:
                     # Get the latest AQI value and details
                     aqi_list = aq_data['hourly']['us_aqi']
@@ -52,6 +58,8 @@ def air_quality_form(request):
                             context['advisory'] = 'Hazardous.'
                     else:
                         context['error'] = 'No AQI data available.'
+                        context['aqi'] = None
+                        context['advisory'] = None
         context['form'] = form
     else:
         context['form'] = AirQualityForm()

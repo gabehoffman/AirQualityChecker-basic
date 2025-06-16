@@ -29,7 +29,7 @@
         {{ form.country }}
         <button type="submit">Submit</button>
     </form>
-    {% if aqi %}
+    {% if aqi is not None %}
     <div class="aqi-box">
         <h2>Air Quality for {{ display_name }}</h2>
         <p><strong>AQI:</strong> {{ aqi }}</p>
