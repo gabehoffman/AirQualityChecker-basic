@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Air Quality Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        form { max-width: 400px; margin: auto; }
+        label { display: block; margin-top: 1em; }
+        input[type="text"] { width: 100%; padding: 0.5em; }
+        .success { color: green; margin-top: 1em; }
+        .errorlist { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Air Quality Location Form</h1>
+    {% if success %}
+        <div class="success">Form submitted successfully!</div>
+    {% endif %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <label for="id_city">City *</label>
+        {{ form.city }}
+        <label for="id_state">State/Province/Region *</label>
+        {{ form.state }}
+        <label for="id_country">Country (default: USA)</label>
+        {{ form.country }}
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        // Basic client-side validation
+        document.querySelector('form').onsubmit = function(e) {
+            var city = document.getElementById('id_city').value.trim();
+            var state = document.getElementById('id_state').value.trim();
+            if (!city || !state) {
+                alert('Please fill in both City and State/Province/Region.');
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>
