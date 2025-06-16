@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <title>Air Quality Checker</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/aqform/brand-colors.css">
     <style>
         body {
-            background: #18191A;
-            color: #F5F6FA;
+            background: var(--brand-bg);
+            color: var(--brand-text);
             font-family: 'Montserrat', Arial, sans-serif;
             margin: 0;
             min-height: 100vh;
         }
         header {
-            background: #232526;
-            border-bottom: 4px solid #FF3C00;
+            background: var(--brand-surface);
+            border-bottom: 4px solid var(--brand-primary);
             padding: 2rem 0 1rem 0;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        header img {
+            height: 48px;
+            margin-bottom: 0.5rem;
         }
         header h1 {
             font-size: 2.5rem;
             font-weight: 700;
             letter-spacing: 2px;
-            color: #FF3C00;
+            color: var(--brand-primary);
             margin: 0;
         }
         main {
@@ -33,7 +38,7 @@
             margin-top: 2rem;
         }
         form {
-            background: #232526;
+            background: var(--brand-surface);
             border-radius: 12px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.18);
             padding: 2rem 2.5rem 1.5rem 2.5rem;
@@ -45,7 +50,7 @@
             display: block;
             margin-top: 1.2em;
             font-weight: 600;
-            color: #FF3C00;
+            color: var(--brand-primary);
             letter-spacing: 1px;
         }
         input[type="text"] {
@@ -54,21 +59,21 @@
             margin-top: 0.3em;
             border: none;
             border-radius: 6px;
-            background: #18191A;
-            color: #F5F6FA;
+            background: var(--brand-bg);
+            color: var(--brand-text);
             font-size: 1rem;
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
             outline: none;
             transition: box-shadow 0.2s;
         }
         input[type="text"]:focus {
-            box-shadow: 0 0 0 2px #FF3C00;
+            box-shadow: 0 0 0 2px var(--brand-primary);
         }
         button[type="submit"] {
             margin-top: 2em;
             width: 100%;
             padding: 0.9em 0;
-            background: linear-gradient(90deg, #FF3C00 0%, #FF6A00 100%);
+            background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
             color: #fff;
             font-size: 1.1rem;
             font-weight: 700;
@@ -80,29 +85,29 @@
             transition: background 0.2s;
         }
         button[type="submit"]:hover {
-            background: linear-gradient(90deg, #FF6A00 0%, #FF3C00 100%);
+            background: linear-gradient(90deg, var(--brand-secondary) 0%, var(--brand-primary) 100%);
         }
         .errorlist, .error {
-            color: #FF3C00;
+            color: var(--brand-primary);
             background: #2A1A18;
-            border-left: 4px solid #FF3C00;
+            border-left: 4px solid var(--brand-primary);
             padding: 0.7em 1em;
             border-radius: 6px;
             margin-bottom: 1em;
         }
         .aqi-box {
-            background: #232526;
+            background: var(--brand-surface);
             border-radius: 12px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.18);
             padding: 2rem 2.5rem 1.5rem 2.5rem;
             margin-top: 1.5em;
             max-width: 420px;
             width: 100%;
-            color: #F5F6FA;
-            border-left: 6px solid #FF3C00;
+            color: var(--brand-text);
+            border-left: 6px solid var(--brand-primary);
         }
         .aqi-box h2 {
-            color: #FF3C00;
+            color: var(--brand-primary);
             font-size: 1.5rem;
             margin-bottom: 1em;
             font-weight: 700;
@@ -121,7 +126,8 @@
 </head>
 <body>
     <header>
-        <h1>Air Quality Checker</h1>
+        <img src="/static/aqform/logo.svg" alt="AirQCheck Logo" style="height:48px;margin-bottom:0.5rem;">
+        <h1 style="margin-top:0.2em;">Air Quality Checker</h1>
     </header>
     <main>
         {% if error %}

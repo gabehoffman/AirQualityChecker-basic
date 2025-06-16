@@ -1,0 +1,7 @@
+<svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="48" rx="12" fill="#232526"/>
+  <text x="20" y="32" font-family="Montserrat, Arial, sans-serif" font-size="28" font-weight="bold" fill="#FF3C00">Air<span fill="#FF6A00">Q</span>Check</text>
+  <circle cx="150" cy="24" r="12" fill="#FF3C00"/>
+  <circle cx="150" cy="24" r="7" fill="#232526"/>
+  <circle cx="150" cy="24" r="4" fill="#FF6A00"/>
+</svg>
